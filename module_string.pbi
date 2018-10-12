@@ -245,18 +245,18 @@ Module String
       If *Last And *Widget = *This And Widget <> Canvas
         If EventType = #PB_EventType_Focus : ProcedureReturn 0 ; Bug in mac os because it is sent after the mouse left down
         ElseIf EventType = #PB_EventType_LeftButtonDown
-          With List()\Widget
-            PushListPosition(List())
-            ForEach List()
-              If *Widget <> List()\Widget
-                If List()\Widget\Focus = List()\Widget : List()\Widget\Focus = 0
-                  *Widget = List()\Widget
-                  CallBack(List()\Widget, #PB_EventType_LostFocus, Canvas, 0)
+          With *W\List()\Widget
+            PushListPosition(*W\List())
+            ForEach *W\List()
+              If *Widget <> *W\List()\Widget
+                If *W\List()\Widget\Focus = *W\List()\Widget : *W\List()\Widget\Focus = 0
+                  *Widget = *W\List()\Widget
+                  CallBack(*W\List()\Widget, #PB_EventType_LostFocus, Canvas, 0)
                   *Widget = *Last
                 EndIf
               EndIf
             Next
-            PopListPosition(List())
+            PopListPosition(*W\List())
           EndWith
           
           If *Widget\Focus <> *Widget 
@@ -644,25 +644,25 @@ Module String
     If *This
       
       ;{ Генерируем идентификатор
-      If Widget =- 1 Or Widget > ListSize(List()) - 1
-        LastElement(List())
-        AddElement(List()) 
-        Widget = ListIndex(List())
-        *Widget = @List()
+      If Widget =- 1 Or Widget > ListSize(*W\List()) - 1
+        LastElement(*W\List())
+        AddElement(*W\List()) 
+        Widget = ListIndex(*W\List())
+        *Widget = @*W\List()
       Else
-        SelectElement(List(), Widget)
-        *Widget = @List()
-        InsertElement(List())
+        SelectElement(*W\List(), Widget)
+        *Widget = @*W\List()
+        InsertElement(*W\List())
         
-        PushListPosition(List())
-        While NextElement(List())
-          ; List()\Item = ListIndex(List())
+        PushListPosition(*W\List())
+        While NextElement(*W\List())
+          ; *W\List()\Item = ListIndex(*W\List())
         Wend
-        PopListPosition(List())
+        PopListPosition(*W\List())
       EndIf
       ;}
       
-      List()\Widget = Widget(*This, Canvas, x, y, Width, Height, Text.s, Flag, Radius)
+      *W\List()\Widget = Widget(*This, Canvas, x, y, Width, Height, Text.s, Flag, Radius)
 ;       Draw(*This, Canvas)
     EndIf
     
@@ -830,5 +830,5 @@ CompilerIf #PB_Compiler_IsMainFile
   EndIf
 CompilerEndIf
 ; IDE Options = PureBasic 5.62 (MacOS X - x64)
-; Folding = --v3f4-+g-9---------
+; Folding = --v3f2--g-9--v------
 ; EnableXP

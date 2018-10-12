@@ -164,7 +164,14 @@
     
   EndStructure
   
-  Global NewList List.Widget()
+  Structure Struct
+    Canvas.CANVAS
+    
+    List List.Widget()
+  EndStructure
+  
+  ;Global NewList List.Widget()
+  Global *W.Struct = AllocateStructure(Struct)
   Global Use_List_Canvas_Gadget
 EndDeclareModule 
 
